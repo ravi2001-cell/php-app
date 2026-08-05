@@ -19,6 +19,7 @@ spec:
           image: rkdocker1800/phpapp:databaseimage
           ports:
             - containerPort: 3306
+              name : mysql
           envFrom:
             - secretRef:
                 name: bankapp-db-secret
@@ -30,7 +31,7 @@ spec:
               cpu: "200m"
               memory: "256Mi"
           volumeMounts:
-            - name: pvc-1
+            - name: mysql-data
               mountPath: /var/lib/mysql
   volumeClaimTemplates:
     - metadata:

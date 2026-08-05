@@ -1,0 +1,50 @@
+---
+apiVersion : apps/v1
+kind : Statefulset
+metadata :
+  name : mysql
+spec :
+  replicas : 1
+  selector :
+    matchLabels :
+      app : app-database
+  template :
+    metadata :
+    labels :
+      app : app-database
+    spec :
+      containers :
+        -name : dbcont
+        image : rkdocker1800/phpapp:databaseimage
+        ports :
+          -containerPort : 3306
+
+
+      #Secret Integration
+        envFrom  :
+          -secretRef :
+            name : bankapp-db-secret
+
+      #Resource Quota
+        resources :
+          requests :
+            cpu : "100m"
+            memory : "128Mi"
+          limits :
+            cpu : "200mi"
+            memory : "256Mi"
+
+
+        VolumeMounts :
+          - name : pvc-1
+            mountPath : /var/lib/mysql
+        volumeClaimTemplates :
+          - metadata :
+              name : pvc-1
+            spec :
+              accessModes :
+                - ReadWriteOnce
+              resource :
+                requests :
+                  storage : 2Gi
+                                     

@@ -1,0 +1,12 @@
+---
+apiVersion : policy/v1
+kind : podDisruptionBudget
+metadata :
+    name : bankapp-pdb
+  spec :
+    minAvailable : 2
+    Selector :
+      matchLabels :
+        app : nginx
+                                                                                                                                                                                                                 
+                            

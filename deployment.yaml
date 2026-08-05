@@ -1,51 +1,42 @@
 ---
-apiVersion : apps/v1
-kind : Deployment
-metadata :
-  name : myapp
-spec :
-  replicas : 2
-  selector :
-    matchLabels :
-      app : nginx
-  template :
-    metadata :
-    labels :
-      app : nginx
-    spec :
-      containers :
-        -name : cont1
-        image : rkdocker1800/phpapp:appimage
-        ports :
-          -containerPort : 80
-
-
-      #configmaps Integration
-        envFrom  :
-          -configMapRef :
-            name : bankapp-config
-
-      #Resource Quota
-        resources :
-          requests :
-            cpu : "100m"
-            memory : "128Mi"
-          limits :
-            cpu : "200mi"
-            memory : "256Mi"
-
-
-    #Probes Integration
-        livenessProbe :
-          httpGet :
-          path : /
-            port : 80
-          initialDelaySeconds : 30
-          periodSeconds : 5
-
-        readinessprobe :
-          httpGet :
-          path : /
-          port : 80
-          intitalDelayseconds : 10
-          periodSeconds : 5
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: cont1
+          image: rkdocker1800/phpapp:appimage
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: bankapp-config
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5

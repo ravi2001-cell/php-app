@@ -34,10 +34,11 @@ spec:
               mountPath: /var/lib/mysql
   volumeClaimTemplates:
     - metadata:
-        name: pvc-1
+        name: mysql-data
       spec:
         accessModes:
           - ReadWriteOnce
+        storageClassName : gp2
         resources:
           requests:
             storage: 2Gi

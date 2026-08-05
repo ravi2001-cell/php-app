@@ -54,7 +54,7 @@ spec:
 
         resources:
           requests:
-            storage: 2Gi ---
+            storage: 2Gi
 # apiVersion: apps/v1
 # kind: StatefulSet
 # metadata:

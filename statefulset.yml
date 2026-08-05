@@ -19,7 +19,7 @@ spec:
           image: rkdocker1800/phpapp:databaseimage
           ports:
             - containerPort: 3306
-              name : mysql
+              name: mysql
           envFrom:
             - secretRef:
                 name: bankapp-db-secret
@@ -39,7 +39,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName : gp2
+        storageClassName: gp2
         resources:
           requests:
             storage: 2Gi
